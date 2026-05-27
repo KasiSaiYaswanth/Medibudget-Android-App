@@ -1,6 +1,11 @@
 package com.medibudget.app.ui.screens
 
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -73,7 +78,32 @@ fun LoginScreen(
     
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var showGoogleChooser by remember { mutableStateOf(false) }
+
+    // Real Native Google Sign-In configuration
+    val gso = remember {
+        GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+    }
+    val googleSignInClient = remember { GoogleSignIn.getClient(context, gso) }
+
+    val googleSignInLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+        try {
+            val account = task.getResult(ApiException::class.java)
+            val realEmail = account?.email
+            if (!realEmail.isNullOrEmpty()) {
+                viewModel.loginWithGoogle(realEmail)
+            } else {
+                Toast.makeText(context, "Google account does not contain a valid email address.", Toast.LENGTH_SHORT).show()
+            }
+        } catch (e: ApiException) {
+            e.printStackTrace()
+            Toast.makeText(context, "Google Sign-In Cancelled or Failed", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     LaunchedEffect(authState) {
         when (authState) {
@@ -182,7 +212,7 @@ fun LoginScreen(
                                 .border(1.dp, Color.White.copy(0.1f), RoundedCornerShape(12.dp))
                                 .background(Color.White.copy(0.05f), RoundedCornerShape(12.dp))
                                 .clickable {
-                                    showGoogleChooser = true
+                                    googleSignInLauncher.launch(googleSignInClient.signInIntent)
                                 },
                             contentAlignment = Alignment.Center
                         ) {
@@ -238,109 +268,6 @@ fun LoginScreen(
             )
         }
 
-        // Google Chooser Dialog Overlay
-        if (showGoogleChooser) {
-            androidx.compose.ui.window.Dialog(
-                onDismissRequest = { showGoogleChooser = false }
-            ) {
-                GlassmorphicCard(
-                    borderColor = PrimaryEmerald.copy(0.3f),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                ) {
-                    Column(
-                        modifier = Modifier.padding(24.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = "Sign in with Google",
-                            color = TextWhite,
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(
-                            text = "Choose an account to continue to MediBudget",
-                            color = TextGray,
-                            fontSize = 12.sp,
-                            textAlign = TextAlign.Center
-                        )
-                        Spacer(modifier = Modifier.height(24.dp))
-
-                        // Account item 1
-                        GoogleAccountItem(
-                            name = "Kasi Sai Yaswanth",
-                            email = "kasisaiyaswanth@gmail.com",
-                            onClick = {
-                                showGoogleChooser = false
-                                viewModel.loginWithGoogle("kasisaiyaswanth@gmail.com")
-                            }
-                        )
-                        Spacer(modifier = Modifier.height(12.dp))
-
-                        // Account item 2
-                        GoogleAccountItem(
-                            name = "Guest User",
-                            email = "guest.medibudget@gmail.com",
-                            onClick = {
-                                showGoogleChooser = false
-                                viewModel.loginWithGoogle("guest.medibudget@gmail.com")
-                            }
-                        )
-                        Spacer(modifier = Modifier.height(24.dp))
-
-                        Text(
-                            text = "Cancel",
-                            color = Color.Red,
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.Bold,
-                            modifier = Modifier
-                                .clickable { showGoogleChooser = false }
-                                .padding(8.dp)
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun GoogleAccountItem(
-    name: String,
-    email: String,
-    onClick: () -> Unit
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
-            .background(Color.White.copy(0.05f))
-            .border(1.dp, Color.White.copy(0.08f), RoundedCornerShape(12.dp))
-            .clickable { onClick() }
-            .padding(12.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Box(
-            modifier = Modifier
-                .size(36.dp)
-                .clip(CircleShape)
-                .background(PrimaryEmerald.copy(0.2f)),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = name.take(1).uppercase(),
-                color = PrimaryEmerald,
-                fontWeight = FontWeight.Bold,
-                fontSize = 16.sp
-            )
-        }
-        Spacer(modifier = Modifier.width(12.dp))
-        Column {
-            Text(name, color = TextWhite, fontSize = 14.sp, fontWeight = FontWeight.Bold)
-            Text(email, color = TextGray, fontSize = 11.sp)
-        }
     }
 }
 

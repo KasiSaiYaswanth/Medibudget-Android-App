@@ -84,6 +84,7 @@ dependencies {
     implementation("io.ktor:ktor-client-core:3.0.1")
     implementation("io.ktor:ktor-client-logging:3.0.1")
     implementation("io.ktor:ktor-client-okhttp:3.0.1")
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
 
     // Retrofit & Network
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
