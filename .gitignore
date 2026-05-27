@@ -1,0 +1,34 @@
+# Built artifacts
+**/build/
+*.apk
+*.aar
+*.ap_
+
+# Files for the ART and JVM
+*.dex
+*.class
+
+# Android Studio / IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+.navigation/
+
+# Gradle files
+.gradle/
+build/
+local.properties
+.gradle-env/
+
+# System and OS files
+.DS_Store
+Thumbs.db
+*.bak
+*.tmp
+*.log
+
+# Local user configurations
+capture.png
+*.local.properties

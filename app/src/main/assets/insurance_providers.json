@@ -1,0 +1,52 @@
+[
+  {
+    "id": "d6897f37-b7e8-48a7-9199-2b4a43e6eb9e",
+    "name": "Star Health",
+    "coverage_percentage": 80,
+    "claim_limit": 1000000,
+    "plan_types": [
+      "individual",
+      "family",
+      "senior"
+    ],
+    "is_active": true,
+    "created_at": "2026-03-08T19:23:40.650617+00:00"
+  },
+  {
+    "id": "b73ca9b8-1cf4-4ba8-88a0-dafa1ef5d80d",
+    "name": "HDFC Ergo",
+    "coverage_percentage": 75,
+    "claim_limit": 750000,
+    "plan_types": [
+      "individual",
+      "family"
+    ],
+    "is_active": true,
+    "created_at": "2026-03-08T19:23:40.650617+00:00"
+  },
+  {
+    "id": "29587fb3-0302-4858-9d0c-aa8558e62171",
+    "name": "ICICI Lombard",
+    "coverage_percentage": 70,
+    "claim_limit": 500000,
+    "plan_types": [
+      "individual",
+      "group"
+    ],
+    "is_active": true,
+    "created_at": "2026-03-08T19:23:40.650617+00:00"
+  },
+  {
+    "id": "972a05f2-33dc-4ba0-8ccd-f00eb6d64cac",
+    "name": "New India Assurance",
+    "coverage_percentage": 85,
+    "claim_limit": 300000,
+    "plan_types": [
+      "individual",
+      "family",
+      "group"
+    ],
+    "is_active": true,
+    "created_at": "2026-03-08T19:23:40.650617+00:00"
+  }
+]

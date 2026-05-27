@@ -1,0 +1,46 @@
+[
+  {
+    "id": "1b9571ed-41db-4f82-a2d1-1eac43becec5",
+    "name": "Ayushman Bharat",
+    "description": "National health protection scheme providing coverage up to ₹5 lakh per family",
+    "eligibility_criteria": "BPL families, deprived rural and urban families",
+    "coverage_amount": 500000,
+    "state": "All India",
+    "is_active": true,
+    "created_at": "2026-03-08T19:23:40.650617+00:00",
+    "updated_at": "2026-03-08T19:23:40.650617+00:00"
+  },
+  {
+    "id": "f842ea8d-fffd-427d-a518-93f6580d6d1d",
+    "name": "Aarogyasri",
+    "description": "Telangana state health scheme for BPL families",
+    "eligibility_criteria": "BPL families in Telangana with white ration card",
+    "coverage_amount": 200000,
+    "state": "Telangana",
+    "is_active": true,
+    "created_at": "2026-03-08T19:23:40.650617+00:00",
+    "updated_at": "2026-03-08T19:23:40.650617+00:00"
+  },
+  {
+    "id": "307e0aae-9d7e-499e-9196-6a115f292eeb",
+    "name": "Mahatma Jyotiba Phule Jan Arogya Yojana",
+    "description": "Maharashtra state health insurance scheme",
+    "eligibility_criteria": "Yellow/orange ration card holders in Maharashtra",
+    "coverage_amount": 250000,
+    "state": "Maharashtra",
+    "is_active": true,
+    "created_at": "2026-03-08T19:23:40.650617+00:00",
+    "updated_at": "2026-03-08T19:23:40.650617+00:00"
+  },
+  {
+    "id": "06eca64b-5ac3-4ec7-bae7-34543f93ca3f",
+    "name": "Chief Minister Comprehensive Health Insurance",
+    "description": "Tamil Nadu state health insurance",
+    "eligibility_criteria": "Annual income below ₹72,000",
+    "coverage_amount": 500000,
+    "state": "Tamil Nadu",
+    "is_active": true,
+    "created_at": "2026-03-08T19:23:40.650617+00:00",
+    "updated_at": "2026-03-08T19:23:40.650617+00:00"
+  }
+]
