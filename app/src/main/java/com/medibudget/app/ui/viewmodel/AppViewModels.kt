@@ -39,6 +39,19 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun loginWithGoogle(email: String) {
+        viewModelScope.launch {
+            _authState.value = AuthState.Loading
+            val result = authRepository.loginWithGoogle(email)
+            result.onSuccess {
+                _authState.value = AuthState.Success("Welcome back, $email!")
+            }
+            result.onFailure {
+                _authState.value = AuthState.Error(it.message ?: "Google authentication failed")
+            }
+        }
+    }
+
     fun signUp(email: String, password: String) {
         viewModelScope.launch {
             _authState.value = AuthState.Loading

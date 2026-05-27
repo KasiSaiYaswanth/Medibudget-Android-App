@@ -30,6 +30,18 @@ class AuthRepository(context: Context) {
         }
     }
 
+    suspend fun loginWithGoogle(email: String): Result<String> = withContext(Dispatchers.IO) {
+        try {
+            sessionManager.isLoggedIn = true
+            sessionManager.userEmail = email
+            sessionManager.userId = email
+            Result.success("Google Sign-In Successful")
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Result.failure(e)
+        }
+    }
+
     suspend fun signUp(email: String, password: String): Result<String> = withContext(Dispatchers.IO) {
         try {
             authClient.signUpWith(Email) {

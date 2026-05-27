@@ -13,8 +13,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.border
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.draw.clip
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -69,6 +73,7 @@ fun LoginScreen(
     
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var showGoogleChooser by remember { mutableStateOf(false) }
 
     LaunchedEffect(authState) {
         when (authState) {
@@ -168,6 +173,34 @@ fun LoginScreen(
                             modifier = Modifier.fillMaxWidth()
                         )
                         Spacer(modifier = Modifier.height(12.dp))
+
+                        // Google Sign-In Option
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(50.dp)
+                                .border(1.dp, Color.White.copy(0.1f), RoundedCornerShape(12.dp))
+                                .background(Color.White.copy(0.05f), RoundedCornerShape(12.dp))
+                                .clickable {
+                                    showGoogleChooser = true
+                                },
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(24.dp)
+                                        .clip(CircleShape)
+                                        .background(Color.White),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text("G", color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 14.sp)
+                                }
+                                Spacer(modifier = Modifier.width(12.dp))
+                                Text("Continue with Google", color = TextWhite, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                            }
+                        }
+                        Spacer(modifier = Modifier.height(12.dp))
                         // Biometric Quick Login Option
                         if (viewModel.isBiometricSet.collectAsState().value) {
                             Box(
@@ -203,6 +236,110 @@ fun LoginScreen(
                 textAlign = TextAlign.Center,
                 modifier = Modifier.clickable { onNavigateToSignup() }
             )
+        }
+
+        // Google Chooser Dialog Overlay
+        if (showGoogleChooser) {
+            androidx.compose.ui.window.Dialog(
+                onDismissRequest = { showGoogleChooser = false }
+            ) {
+                GlassmorphicCard(
+                    borderColor = PrimaryEmerald.copy(0.3f),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
+                    Column(
+                        modifier = Modifier.padding(24.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = "Sign in with Google",
+                            color = TextWhite,
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = "Choose an account to continue to MediBudget",
+                            color = TextGray,
+                            fontSize = 12.sp,
+                            textAlign = TextAlign.Center
+                        )
+                        Spacer(modifier = Modifier.height(24.dp))
+
+                        // Account item 1
+                        GoogleAccountItem(
+                            name = "Kasi Sai Yaswanth",
+                            email = "kasisaiyaswanth@gmail.com",
+                            onClick = {
+                                showGoogleChooser = false
+                                viewModel.loginWithGoogle("kasisaiyaswanth@gmail.com")
+                            }
+                        )
+                        Spacer(modifier = Modifier.height(12.dp))
+
+                        // Account item 2
+                        GoogleAccountItem(
+                            name = "Guest User",
+                            email = "guest.medibudget@gmail.com",
+                            onClick = {
+                                showGoogleChooser = false
+                                viewModel.loginWithGoogle("guest.medibudget@gmail.com")
+                            }
+                        )
+                        Spacer(modifier = Modifier.height(24.dp))
+
+                        Text(
+                            text = "Cancel",
+                            color = Color.Red,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .clickable { showGoogleChooser = false }
+                                .padding(8.dp)
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun GoogleAccountItem(
+    name: String,
+    email: String,
+    onClick: () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(12.dp))
+            .background(Color.White.copy(0.05f))
+            .border(1.dp, Color.White.copy(0.08f), RoundedCornerShape(12.dp))
+            .clickable { onClick() }
+            .padding(12.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(
+            modifier = Modifier
+                .size(36.dp)
+                .clip(CircleShape)
+                .background(PrimaryEmerald.copy(0.2f)),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = name.take(1).uppercase(),
+                color = PrimaryEmerald,
+                fontWeight = FontWeight.Bold,
+                fontSize = 16.sp
+            )
+        }
+        Spacer(modifier = Modifier.width(12.dp))
+        Column {
+            Text(name, color = TextWhite, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+            Text(email, color = TextGray, fontSize = 11.sp)
         }
     }
 }
