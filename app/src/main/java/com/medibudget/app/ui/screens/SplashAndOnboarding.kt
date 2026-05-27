@@ -25,7 +25,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Calculate
 import androidx.compose.material.icons.filled.QrCodeScanner
 import androidx.compose.material.icons.filled.Security
-import androidx.compose.material.icons.filled.Sparkles
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -81,7 +80,7 @@ fun SplashScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
-                imageVector = Icons.Default.Sparkles,
+                imageVector = Icons.Default.Security,
                 contentDescription = "MediBudget Logo",
                 tint = PrimaryEmerald,
                 modifier = Modifier
@@ -118,7 +117,7 @@ fun OnboardingScreen(
         OnboardingPageData(
             title = "Healthcare Intelligence",
             desc = "Analyze your health symptoms with advanced AI diagnostic assistants. Understand potential risks, recommended doctor categories, and exact procedures instantly.",
-            icon = Icons.Default.Sparkles
+            icon = Icons.Default.Security
         ),
         OnboardingPageData(
             title = "Dynamic Cost Predictor",

@@ -26,8 +26,8 @@ import androidx.compose.material.icons.filled.Calculate
 import androidx.compose.material.icons.filled.HeartBroken
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.Send
-import androidx.compose.material.icons.filled.Sparkles
-import androidx.compose.material.icons.filled.Stethoscope
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
@@ -143,7 +143,7 @@ fun SymptomChatScreen(
                         .background(PrimaryEmerald.copy(0.15f)),
                     contentAlignment = Alignment.Center
                 ) {
-                    Icon(Icons.Default.Sparkles, contentDescription = null, tint = PrimaryEmerald, modifier = Modifier.size(40.dp))
+                    Icon(Icons.Default.Calculate, contentDescription = null, tint = PrimaryEmerald, modifier = Modifier.size(40.dp))
                 }
                 Spacer(modifier = Modifier.height(24.dp))
                 Text("How are you feeling today?", color = TextWhite, fontSize = 20.sp, fontWeight = FontWeight.Bold)
@@ -161,7 +161,7 @@ fun SymptomChatScreen(
                 Text("Quick presets:", color = TextGray, fontSize = 12.sp, fontWeight = FontWeight.Bold)
                 Spacer(modifier = Modifier.height(12.dp))
                 
-                QuickSymptomTile("I have a high fever", Icons.Default.Stethoscope) {
+                QuickSymptomTile("I have a high fever", Icons.Default.Calculate) {
                     viewModel.sendChatMessage("I have a high fever and body chills")
                 }
                 Spacer(modifier = Modifier.height(12.dp))

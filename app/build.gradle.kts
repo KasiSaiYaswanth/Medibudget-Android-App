@@ -55,7 +55,7 @@ dependencies {
     val composeVersion = "1.6.1"
     val lifecycleVersion = "2.7.0"
     val roomVersion = "2.6.1"
-    val supabaseVersion = "2.1.3"
+    val supabaseVersion = "3.0.1"
 
     // Core AndroidX
     implementation("androidx.core:core-ktx:1.12.0")

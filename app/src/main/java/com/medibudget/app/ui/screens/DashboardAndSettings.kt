@@ -2,6 +2,7 @@ package com.medibudget.app.ui.screens
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -30,9 +31,8 @@ import androidx.compose.material.icons.filled.MedicalServices
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.QrCodeScanner
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.ShieldCheck
-import androidx.compose.material.icons.filled.Sparkles
 import androidx.compose.material.icons.filled.Warning
+import com.medibudget.app.data.local.entity.EstimationLogEntity
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
@@ -122,7 +122,7 @@ fun DashboardScreen(
                 FeatureCard(
                     title = "AI Symptom Assistant",
                     desc = "Conversational Health Assistant",
-                    icon = Icons.Default.Sparkles,
+                    icon = Icons.Default.MedicalServices,
                     onClick = { onNavigate("symptom_input") },
                     modifier = Modifier.weight(1f)
                 )
@@ -216,7 +216,7 @@ fun DashboardScreen(
                 Spacer(modifier = Modifier.width(16.dp))
                 FeatureTileMini(
                     title = "Insurance Coverage",
-                    icon = Icons.Default.ShieldCheck,
+                    icon = Icons.Default.LocalHospital,
                     onClick = { onNavigate("insurance_calc") },
                     modifier = Modifier.weight(1f)
                 )

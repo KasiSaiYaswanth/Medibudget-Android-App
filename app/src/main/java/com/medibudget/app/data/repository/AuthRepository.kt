@@ -15,7 +15,7 @@ class AuthRepository(context: Context) {
 
     suspend fun login(email: String, password: String): Result<String> = withContext(Dispatchers.IO) {
         try {
-            val session = authClient.loginWith(Email) {
+            authClient.signInWith(Email) {
                 this.email = email
                 this.password = password
             }
