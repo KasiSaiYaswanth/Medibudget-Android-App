@@ -3,15 +3,15 @@ package com.medibudget.app.data.repository
 import android.content.Context
 import com.medibudget.app.data.remote.NetworkClient
 import com.medibudget.app.utils.SessionManager
-import io.github.jan.supabase.gotrue.gotrue
-import io.github.jan.supabase.gotrue.providers.builtin.Email
+import io.github.jan.supabase.auth.auth
+import io.github.jan.supabase.auth.providers.builtin.Email
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class AuthRepository(context: Context) {
 
     private val sessionManager = SessionManager(context)
-    private val authClient = NetworkClient.supabase.gotrue
+    private val authClient = NetworkClient.supabase.auth
 
     suspend fun login(email: String, password: String): Result<String> = withContext(Dispatchers.IO) {
         try {
