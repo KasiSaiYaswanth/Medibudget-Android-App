@@ -50,6 +50,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "medibudget_database"
                 )
+                .fallbackToDestructiveMigration()
                 .addCallback(AppDatabaseCallback(context, scope))
                 .build()
                 INSTANCE = instance
