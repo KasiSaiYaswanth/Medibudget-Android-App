@@ -29,6 +29,7 @@ import com.medibudget.app.ui.viewmodel.HealthViewModel
 
 import com.medibudget.app.ui.screens.AdminDashboardScreen
 import com.medibudget.app.ui.screens.ReportsScreen
+import com.medibudget.app.ui.screens.InsuranceCalcScreen
 
 @Composable
 fun NavGraph(
@@ -238,6 +239,13 @@ fun NavGraph(
         composable(ScreenRoute.MapFinder.route) {
             MapFinderScreen(
                 viewModel = healthViewModel,
+                onNavigateBack = { navController.popBackStack() }
+            )
+        }
+
+        // Insurance Coverage Calculator Screen
+        composable(ScreenRoute.InsuranceCalc.route) {
+            InsuranceCalcScreen(
                 onNavigateBack = { navController.popBackStack() }
             )
         }
